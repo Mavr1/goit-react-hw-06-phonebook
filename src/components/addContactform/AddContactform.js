@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Input from '../input/Input';
 import Button from '../button/Button';
 import shortid from 'shortid';
+import { connect } from 'react-redux';
+import contactsActions from '../../redux/contacts/contactsActions';
 
 const initialState = { name: '', number: '' };
 
@@ -46,4 +48,8 @@ class AddContactform extends Component {
   }
 }
 
-export default AddContactform;
+const mapDispatchToProps = (dispatch) => ({
+  addContact: (contact) => dispatch(contactsActions.addContact(contact)),
+});
+
+export default connect(null, mapDispatchToProps)(AddContactform);

@@ -6,36 +6,28 @@ import Filter from './components/filter/Filter';
 import Contacts from './components/contacts/Contacts';
 import Switches from './components/switch/Switch';
 import { filterContacts } from './services/helpers';
-import contactsActions from './redux/contacts/contactsActions';
 import styles from './App.module.css';
 
-const App = ({ contacts, filter, currentTheme, addContact, setFilter }) => (
+const App = ({ contacts, filter, currentTheme }) => (
   <div className={currentTheme === 'light' ? styles.AppLight : styles.AppDark}>
     <Switches />
     <h1>Phonebook</h1>
     <Section>
-      <AddContactform addContact={addContact} />
+      <AddContactform />
     </Section>
     <Section name="Contacts">
-      {contacts.length > 1 && <Filter onChange={setFilter} />}
+      {contacts.length > 1 && <Filter />}
       <Contacts
-        contacts={
-          contacts.filter !== '' ? filterContacts(contacts, filter) : contacts
-        }
+        contacts={filter !== '' ? filterContacts(contacts, filter) : contacts}
       />
     </Section>
   </div>
 );
 
-const mapStateToProps = (state) => ({
-  contacts: state.contacts.list,
-  filter: state.contacts.filter,
-  currentTheme: state.theme.currentTheme,
+const mapStateToProps = ({ contacts, theme }) => ({
+  contacts: contacts.list,
+  filter: contacts.filter,
+  currentTheme: theme.currentTheme,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  addContact: (contact) => dispatch(contactsActions.addContact(contact)),
-  setFilter: (query) => dispatch(contactsActions.setFilter(query)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
