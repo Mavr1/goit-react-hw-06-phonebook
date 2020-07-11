@@ -1,0 +1,8 @@
+const actionTypes = {
+  ADD_CONTACT: 'ADD_CONTACT',
+  DELETE_CONTACT: 'DELETE_CONTACT',
+  FILTER_CONTACTS: 'FILTER_CONTACTS',
+  SWITCH_THEME: 'SWITCH_THEME',
+};
+
+export default actionTypes;
